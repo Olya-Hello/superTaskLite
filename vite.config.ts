@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const repoName = 'superTaskLite'
+const repoName = 'tasklite'
 
 export default defineConfig({
 plugins: [react()],
