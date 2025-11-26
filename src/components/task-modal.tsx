@@ -27,6 +27,7 @@ const Modal = styled.div<{visible: boolean}>`
     border-radius: ${p => p.theme.spacing(0.7)};
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: ${p => p.theme.spacing(2)};
     position: absolute;
     top: 50%;
@@ -47,7 +48,6 @@ const TextModalContainer = styled.div`
     padding: ${p => p.theme.spacing(2)};
     border: none;
     border-left: 3px solid ${p => p.theme.colors.border.built_in};
-    height: ${p => p.theme.spacing(20)};
 `;
 
 const StyledButtonSave = styled.button`
@@ -77,7 +77,6 @@ const StyledButtonСancellation = styled.button`
 const ButtonModalContainer = styled.div`
     display: flex;
     gap: ${p => p.theme.spacing(2)};
-    margin-top: ${p => p.theme.spacing(2)};
 `;
 
 const InputModal = styled.input`
@@ -87,6 +86,7 @@ const InputModal = styled.input`
   border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.border.built_in};
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: box-shadow 0.2s;
+  border-radius: ${p => p.theme.spacing(0.4)};
 
   &: hover {
    border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.accent};
@@ -100,6 +100,42 @@ const InputModal = styled.input`
   }
 `;
 
+const InputDateModal = styled.input`
+  background-color: ${p => p.theme.colors.surface};
+  padding: ${p => p.theme.spacing(2)};
+  border: none;
+  border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.border.built_in};
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s;
+  border-radius: ${p => p.theme.spacing(0.4)};
+
+  &: hover {
+   border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.accent};
+  }
+
+  &: focus {
+    box-shadow: 0 0 8px ${p => p.theme.colors.taskLine};
+    &: hover {
+      border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.border.built_in};
+    }
+  }
+
+  &::-webkit-calendar-picker-indicator {
+    background: ${p => p.theme.colors.taskLineShadow};
+    cursor: pointer;
+    border-left: ${p => p.theme.spacing(0.3)} dashed ${p => p.theme.colors.taskLine};
+    border-top-left-radius: 0;
+    border-top-right-radius: ${p => p.theme.spacing(0.4)};
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: ${p => p.theme.spacing(0.4)};
+
+    &: hover {
+      background: ${p => p.theme.colors.taskLineShine};
+      border-left: ${p => p.theme.spacing(0.3)} dashed ${p => p.theme.colors.taskLineShineBorder};
+    }
+  }
+`;
+
 const AreaModal = styled.textarea`
   background-color: ${p => p.theme.colors.surface};
   padding: ${(p) => p.theme.spacing(2)};
@@ -109,13 +145,14 @@ const AreaModal = styled.textarea`
   transition: box-shadow 0.2s;
   resize: none;
   overflow: hidden;
+  border-radius: ${p => p.theme.spacing(0.4)};
 
   &: hover {
     border-left: ${p => p.theme.spacing(0.4)} solid ${(p) => p.theme.colors.accent};
   }
 
   &: focus {
-    box-shadow: 0 0 8px ${p => p.theme.colors.taskLine};
+    box-shadow: 0 0 8px ${p => p.theme.colors.areaModal};
     &: hover {
       border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.border.built_in};
   }
@@ -144,16 +181,24 @@ const Container = styled.div`
 
 export type TaskModalProp = {
     task: Task;
-    onSave: (id: string, newTitle: string, description: string) => void;
+    onSave: (
+        id: string, 
+        newTitle: string, 
+        description: string,
+        newdeadline: Date | null
+    ) => void;
     onClose: () => void;
 }
 
 export default function TaskModal (p: TaskModalProp) {
     const [title, setTitle] = useState(p.task.title);
+    const [visible, setVisible] = useState(false);
     const [description, setdescription] = useState(
         p.task.description ?? ''
     );
-    const [visible, setVisible] = useState(false);
+    const [deadline, setdeadline] = useState<string>(
+        p.task.deadline ? p.task.deadline.toISOString().split('T')[0] : ''
+    );
 
     useEffect(() => {
         const t = setTimeout(() => setVisible(true), 5);
@@ -183,7 +228,12 @@ export default function TaskModal (p: TaskModalProp) {
     else if(isValidTaskTitleTwo(title) === true){
         button =  <StyledButtonSave 
                     onClick={() => {
-                       p.onSave(p.task.id, title, description);
+                       p.onSave(
+                        p.task.id, 
+                        title, 
+                        description, 
+                        deadline ? new Date(deadline) : null
+                       );
                        p.onClose();
                     }}>
                     save
@@ -220,6 +270,10 @@ export default function TaskModal (p: TaskModalProp) {
                     />
                     {errorTextArea}
                 </Container>
+                <InputDateModal
+                    type='Date'
+                    value={deadline}
+                    onChange={e => setdeadline(e.target.value)} />
             </TextModalContainer>
             <ButtonModalContainer>
                 <StyledButtonСancellation 

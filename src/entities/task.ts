@@ -6,7 +6,7 @@ export type Task = {
     title: string;
     description: string;
     created: string;
-    dedline?: Date | null;
+    deadline?: Date | null;
     complete: boolean;
 }
 
@@ -18,6 +18,7 @@ export function makeTask(title: string): Task{
         title: title.trim().replace(/\s+ /g, " "),
         created: "created " + creationDate,
         complete: false,
+        deadline: null,
         description: ''
     }
 }

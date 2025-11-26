@@ -11,9 +11,14 @@ export function loadTasks(): Task[]{
 
     const parsed = JSON.parse(saved);
     return parsed.map((task: Task) => ({
-        ...task
+        ...task,
+        deadline: task.deadline ? new Date(task.deadline) 
+        : null
     }));
 }
+
+
+
 
 // export function loadTasks(): Task[] {
 //     const saved = localStorage.getItem(STORAGE_KEY);
@@ -29,3 +34,4 @@ export function loadTasks(): Task[]{
 //         return [];
 //     }
 // }
+

@@ -43,7 +43,8 @@ all: "#665283ff",
 active: "rgba(138, 68, 68, 1)",
 completed: "#cf79a1ff",
 
-allTextColor: '#2c2530ff'
+allTextColor: '#2c2530ff',
+areaModal: '#dae483ff'
 },
 spacing: (f: number) => `${f * 8}px`,
 radius: {

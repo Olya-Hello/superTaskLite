@@ -68,12 +68,20 @@ export function TasksPage() {
     setTasks(tasks.filter((t) => t.id !== idTarget));
   }
 
-  function handleEditItem(id: string, newTitle: string, newDesk: string){
+  function handleEditItem(
+    id: string, 
+    newTitle: string, 
+    newDesc: string, 
+    newDeadline: Date | null){
     setTasks(
       tasks.map((task: Task) =>
         id === task.id
-          ? { ...task, title: newTitle, description: newDesk }
-            : task
+          ? { ...task, 
+            title: newTitle, 
+            description: newDesc, 
+            deadline: newDeadline
+            }
+          : task
       )
     );
   }
