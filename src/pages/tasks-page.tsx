@@ -161,12 +161,14 @@ export function TasksPage() {
           tasks={tasks}
           handleAddItem={handleAddItem}
         />
+        <div>
           <StyledInput
           value={query}
           onChange={e => setQuery(e.target.value)} 
           type="text"
           placeholder="search for thoughts..."
           />
+        </div>
         <ChoiceDateSortContainer>
           <ChoiceDateSort
           value={value}
