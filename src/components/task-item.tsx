@@ -80,10 +80,9 @@ export function TaskItem(p: TaskItemProp) {
     const diff = date.getTime() - now.getTime();
     const days = diff / (24 * 3600 * 1000);
     if(days < 0) return theme.colors.error;
-    if(days <= 1) return theme.colors.accent;
-    return theme.colors.textMuted
+    if(days <= 1) return theme.colors.taskLine;
+    return theme.colors.accent
   }
-
 
   const description = p.task.description.trim() !== '';
 
@@ -119,18 +118,24 @@ export function TaskItem(p: TaskItemProp) {
                 </Description>
                 )}
                 <div>
-                    <p>{p.task.created.toLocaleString()}</p>
+                    <p>
+                        {p.task.created.toLocaleString()} <DeadlineText color={getDeadline(
+                            p.task.deadline === undefined || p.task.deadline ===  null ? new Date : p.task.deadline)}> 
+                            → 
+                        </DeadlineText>
+                    </p>
                     {p.task.deadline  && 
-                    <><DeadlineText color={getDeadline(p.task.deadline)}> → {
+                    <>
+                    <DeadlineText color={getDeadline(p.task.deadline)}> {
                         p.task.deadline.toLocaleDateString('ru-RU', {
                                 day: '2-digit',
                                 month: '2-digit',
                                 year: 'numeric',
                             }).replace('.', ' | ').replace('.', ' | ') 
                         }
-                    </DeadlineText></>}
+                    </DeadlineText>
+                    </>}
                 </div>
-
             </TextListContainer>
 
             <ButtonListContainer>
@@ -146,54 +151,3 @@ export function TaskItem(p: TaskItemProp) {
     );
 }
 
-
-
-
-
-
-
-
-
-/*
-export function TaskItem(p: TaskItemProp) {
-    const [title, setTitle] = useState(p.task.title);
-    const [isEditing, setisEditing] = useState(false);
-
-    const showTitle = isEditing ? (
-        <input 
-            type="text"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            onBlur={handleSave}
-        />
-    ) : (
-        <h3>{p.task.title}</h3>
-    );
-
-    function handleSave(){
-        p.onEdit(p.task.id, title);
-        setisEditing(false)
-    }
-
-    return (
-        <Item>
-            <TextListContainer>
-                {showTitle}
-                <p>{p.task.created.toLocaleString()}</p>
-            </TextListContainer>
-
-            <ButtonListContainer>
-                <Button label="&#9998;"
-                onClick = { () => p.onEdit(p.task)}>
-                </Button>
-                
-                <Button label="&#10060;"
-                onClick = { () => {
-                    p.onRemove(p.task.id); 
-                }}>    
-                </Button>
-            </ButtonListContainer>
-        </Item>  
-    );
-}
-*/
