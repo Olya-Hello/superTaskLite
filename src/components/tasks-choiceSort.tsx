@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-// import type { Task } from "../entities/task";
 
 const ChoiceDateSortContainer = styled.div`
   display: flex;
@@ -50,6 +49,11 @@ const ChoiceDateSortSelect = styled.select`
 
 const ChoiceDateSortOption = styled.option`
 `;
+
+export const options = [
+  { value: 'new', label: 'new' },
+  { value: 'old', label: 'old' }
+]
 
 type ChoiceDateSortProp = {
   value: string

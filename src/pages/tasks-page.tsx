@@ -168,7 +168,7 @@ export function TasksPage() {
           type="text"
           placeholder="search for thoughts..."
           />
-        </div>
+          </div>
         <ChoiceDateSortContainer>
           <ChoiceDateSort
           value={value}
