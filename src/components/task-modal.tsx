@@ -54,7 +54,7 @@ const StyledButtonSave = styled.button`
     background-color: ${p => p.theme.colors.accent};
     &:hover { background-color: 
     ${p => p.theme.colors.accentHover};}
-    border-radius ${p => p.theme.radius.lg};
+    border-radius: ${p => p.theme.radius.lg};
     cursor: pointer;
     color: ${p => p.theme.colors.surface};
     padding: ${p => p.theme.spacing(2)};
@@ -66,7 +66,7 @@ const StyledButtonСancellation = styled.button`
     background-color: ${p => p.theme.colors.accentСancellation};
     &:hover { background-color: 
     ${p => p.theme.colors.accentHoverСancellation};}
-    border-radius ${p => p.theme.radius.lg};
+    border-radius: ${p => p.theme.radius.lg};
     cursor: pointer;
     color: ${p => p.theme.colors.surface};
     padding: ${p => p.theme.spacing(2)};
@@ -88,15 +88,15 @@ const InputModal = styled.input`
   transition: box-shadow 0.2s;
   border-radius: ${p => p.theme.spacing(0.4)};
 
-  &: hover {
+  &:hover {
    border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.accent};
   }
 
-  &: focus {
+  &:focus {
     box-shadow: 0 0 8px ${p => p.theme.colors.accent};
-    &: hover {
+    &:hover {
       border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.border.built_in};
-  }
+    }
   }
 `;
 
@@ -147,13 +147,13 @@ const AreaModal = styled.textarea`
   overflow: hidden;
   border-radius: ${p => p.theme.spacing(0.4)};
 
-  &: hover {
+  &:hover {
     border-left: ${p => p.theme.spacing(0.4)} solid ${(p) => p.theme.colors.accent};
   }
 
-  &: focus {
+  &:focus {
     box-shadow: 0 0 8px ${p => p.theme.colors.areaModal};
-    &: hover {
+    &:hover {
       border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.border.built_in};
   }
   }
@@ -161,7 +161,7 @@ const AreaModal = styled.textarea`
 
 const StyledSaveError = styled.button`
     background-color: ${p => p.theme.colors.StyledSaveError};
-    border-radius ${p => p.theme.radius.lg};
+    border-radius: ${p => p.theme.radius.lg};
     cursor: pointer;
     color: ${p => p.theme.colors.surface};
     padding: ${p => p.theme.spacing(2)};
@@ -223,7 +223,7 @@ export default function TaskModal (p: TaskModalProp) {
             
     if(isValidTaskTitle(title) === false){
         button = buttonError;
-        errorTextTitle=<ErrorModal>! {title.length} &gt; {MAX_TITLE_LENGTH}</ErrorModal>
+        errorTextTitle=<ErrorModal>! {title.length}&nbsp;&gt;&nbsp;{MAX_TITLE_LENGTH}</ErrorModal>
     }
     else if(isValidTaskTitleTwo(title) === true){
         button =  <StyledButtonSave 
@@ -246,7 +246,7 @@ export default function TaskModal (p: TaskModalProp) {
             
     if(isValidTaskDescription(description) === false){
         button = buttonError;
-        errorTextArea=<ErrorModal>! {description.length} &gt; {MAX_DESCRIPTION_LENGTH}</ErrorModal>
+        errorTextArea=<ErrorModal>! {description.length}&nbsp;&gt;&nbsp;{MAX_DESCRIPTION_LENGTH}</ErrorModal>
     }
 
     return(<ModalBack visable={visible}>

@@ -17,7 +17,7 @@ const StyledButton = styled.button<{percent: number}>`
   background-color: ${p => p.theme.colors.taskLineShadow};
   border-top: ${p => p.theme.spacing(0.4)} dashed ${p => p.percent === 100 ? p.theme.colors.taskLineShineBorder : p.theme.colors.taskLine};
 
-  &: hover {
+  &:hover {
   color: ${p => p.theme.colors.taskLine};
   background-color: ${p => p.theme.colors.taskLineShineBorder};
   border-left: ${p => p.theme.spacing(0.5)} solid ${p => p.theme.colors.taskLineShineBorder};

@@ -10,20 +10,22 @@ const ButtonListContainer = styled.div`
 `;
 
 const Item = styled.div`
+    border-top-left-radius: ${p => p.theme.spacing(0.2)};
+    border-bottom-left-radius: ${p => p.theme.spacing(0.2)};
     padding: ${p => p.theme.spacing(1)};
-    padding-bottom: ${p => p.theme.spacing(1.2)};
+    padding-bottom: ${p => p.theme.spacing(2)};
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 ${p => p.theme.spacing(0.7)};
+    margin: ${p => p.theme.spacing(0.7)} ${p => p.theme.spacing(0.7)};
     transition: margin 0.4s ease, box-shadow 0.4s ease;
-    border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.accentShadow};
+    border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.accentBorderGray};
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
 
-    &: hover {
+    &:hover {
     box-shadow: 0 7px 17px rgba(0,0,0,0.2);
-    margin: 0;
+    margin: ${p => p.theme.spacing(0.7)} 0;
     border-left: ${p => p.theme.spacing(0.4)} solid ${p => p.theme.colors.accent};
-    }
 `;
 
 const TextListContainer = styled.div`
@@ -62,12 +64,16 @@ const DeadlineText = styled.span<{color: string}>`
     color: ${p => p.color};
 `;
 
+const ItsLiterallyThreeDots_ImagineThat = styled.p``;
+
 type TaskItemProp = {
     task: Task;
     onRemove: (id: string) => void;
     onEdit: (task: Task) => void;
     onToggle: (id: string) => void;
 }
+
+const newDate = new Date();
 
 export function TaskItem(p: TaskItemProp) {
   const [showDescription, setShowDescription] = useState(false);
@@ -76,13 +82,28 @@ export function TaskItem(p: TaskItemProp) {
 
   function getDeadline(date: Date){
     const now = new Date();
-    // const days = date.getTime();
     const diff = date.getTime() - now.getTime();
     const days = diff / (24 * 3600 * 1000);
     if(days < 0) return theme.colors.error;
     if(days <= 1) return theme.colors.taskLine;
-    return theme.colors.accent
-  }
+    if(days <= 10) return theme.colors.accent;
+    return theme.colors.textMuted
+   }
+
+//   function getDeadlineForInput(date: Date){
+//     const now = new Date();
+//     const diff = date.getTime() - now.getTime();
+//     const days = diff / (24 * 3600 * 1000);
+//     if(
+//         date === null || 
+//         date === undefined || 
+//         date === newDate
+//     ) return theme.colors.accentBorderGray;
+//     if(days < 0) return theme.colors.error;
+//     if(days <= 1) return theme.colors.taskLineShineBorder;
+//     if(days <= 10) return theme.colors.accent;
+//     return theme.colors.accentBorderGray
+//   }
 
   const description = p.task.description.trim() !== '';
 
@@ -108,7 +129,9 @@ export function TaskItem(p: TaskItemProp) {
                     {description && (
                     <ButtonDescription
                     onClick={() => setShowDescription(p => !p)}>
-                        <h4>...</h4>
+                        <ItsLiterallyThreeDots_ImagineThat>
+                            ...
+                        </ItsLiterallyThreeDots_ImagineThat>
                     </ButtonDescription>
                     )}
 
@@ -119,10 +142,11 @@ export function TaskItem(p: TaskItemProp) {
                 )}
                 <div>
                     <p>
-                        {p.task.created.toLocaleString()} <DeadlineText color={getDeadline(
-                            p.task.deadline === undefined || p.task.deadline ===  null ? new Date : p.task.deadline)}> 
-                            → 
-                        </DeadlineText>
+                        {p.task.created.toLocaleString()} 
+                        {p.task.deadline && <DeadlineText color={getDeadline(
+                            p.task.deadline === undefined || 
+                            p.task.deadline ===  null ? newDate : p.task.deadline)}> → 
+                        </DeadlineText>}
                     </p>
                     {p.task.deadline  && 
                     <>
