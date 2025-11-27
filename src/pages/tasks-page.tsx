@@ -47,7 +47,7 @@ const InputAndChoiceDateSortContainer = styled.div`
 
 const ChoiceDateSortContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 export function TasksPage() {
@@ -161,13 +161,13 @@ export function TasksPage() {
           tasks={tasks}
           handleAddItem={handleAddItem}
         />
-        <ChoiceDateSortContainer>
           <StyledInput
           value={query}
           onChange={e => setQuery(e.target.value)} 
           type="text"
           placeholder="search for thoughts..."
           />
+        <ChoiceDateSortContainer>
           <ChoiceDateSort
           value={value}
           setValue={setValue}
