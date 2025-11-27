@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import type { Task } from "../entities/task";
 import { Button} from "../Button";
 import { useState } from "react";
+import { useTheme } from "@emotion/react";
 
 const ButtonListContainer = styled.div`
   display: flex; 
@@ -57,6 +58,10 @@ const Krestik = styled.span`
     font-size: ${p => p.theme.spacing(2.7)};
 `;
 
+const DeadlineText = styled.span<{color: string}>`
+    color: ${p => p.color};
+`;
+
 type TaskItemProp = {
     task: Task;
     onRemove: (id: string) => void;
@@ -66,6 +71,19 @@ type TaskItemProp = {
 
 export function TaskItem(p: TaskItemProp) {
   const [showDescription, setShowDescription] = useState(false);
+
+  const theme = useTheme();
+
+  function getDeadline(date: Date){
+    const now = new Date();
+    // const days = date.getTime();
+    const diff = date.getTime() - now.getTime();
+    const days = diff / (24 * 3600 * 1000);
+    if(days < 0) return theme.colors.error;
+    if(days <= 1) return theme.colors.accent;
+    return theme.colors.textMuted
+  }
+
 
   const description = p.task.description.trim() !== '';
 
@@ -87,18 +105,32 @@ export function TaskItem(p: TaskItemProp) {
             <TextListContainer>
                 <TaskItemsContainer>
                     {showTitle}
+
                     {description && (
                     <ButtonDescription
                     onClick={() => setShowDescription(p => !p)}>
                         <h4>...</h4>
                     </ButtonDescription>
                     )}
+
                 </TaskItemsContainer>{showDescription && (
                 <Description>
                     {p.task.description.trim().replace(/\s+/g, " ")}
                 </Description>
                 )}
-                <p>{p.task.created.toLocaleString()}</p>
+                <div>
+                    <p>{p.task.created.toLocaleString()}</p>
+                    {p.task.deadline  && 
+                    <><DeadlineText color={getDeadline(p.task.deadline)}> → {
+                        p.task.deadline.toLocaleDateString('ru-RU', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                            }).replace('.', ' | ').replace('.', ' | ') 
+                        }
+                    </DeadlineText></>}
+                </div>
+
             </TextListContainer>
 
             <ButtonListContainer>
