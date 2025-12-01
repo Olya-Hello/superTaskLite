@@ -37,9 +37,8 @@ const Wrapper = styled.div`
 `;
 
 const InputAndChoiceDateSortContainer = styled.div`
-  gap: 8px;
-  padding: ${p => p.theme.spacing(3.7)} ${p => p.theme.spacing(1)};
   background: linear-gradient(135deg, rgba(155, 121, 207, 0.4) 0%, rgba(207, 121, 161, 0.4) 100%);
+  padding: ${p => p.theme.spacing(3.7)} ${p => p.theme.spacing(1)};
   border-radius: ${p => p.theme.spacing(1)};
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   margin-bottom: ${p => p.theme.spacing(7)};
@@ -48,6 +47,16 @@ const InputAndChoiceDateSortContainer = styled.div`
 const ChoiceDateSortContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+const SuperTaskLiteContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const SuperTaskLite = styled.h1`
+  color: ${p => p.theme.colors.surface};
+  margin-bottom: ${p => p.theme.spacing(3)};
 `;
 
 export function TasksPage() {
@@ -149,6 +158,9 @@ export function TasksPage() {
     <Wrapper>
       <div>
         <InputAndChoiceDateSortContainer>
+        <SuperTaskLiteContainer>
+        <SuperTaskLite>su-u-uperTaskLite</SuperTaskLite>
+        </SuperTaskLiteContainer>
         <StyledInput
           value={task}
           onChange={e => setTask(e.target.value)}
