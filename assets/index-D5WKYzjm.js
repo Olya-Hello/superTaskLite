@@ -135,7 +135,7 @@ Error generating stack: `+l.message+`
   border-bottom-left-radius: 0;
   border-bottom-right-radius: ${n=>n.theme.radius.wrapper};
 `,eg=lt.div`
-    min-width: ${n=>n.theme.spacing(38)};
+    min-width: ${n=>n.theme.spacing(43)};
     background-color: ${n=>n.theme.colors.surface};
     padding: 
     ${n=>n.theme.spacing(2.7)};
