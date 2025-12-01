@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   padding: ${p => p.theme.spacing(5)};
   padding-left: ${p => p.theme.spacing(7)};
   border-left: 
-  ${p => p.theme.spacing(1.5)} dashed 
+  ${p => p.theme.spacing(2)} dashed 
   ${p => p.theme.colors.border.wrapper};
   border-top-left-radius: 0;
   border-top-right-radius: ${p => p.theme.radius.wrapper};
