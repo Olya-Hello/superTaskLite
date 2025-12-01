@@ -143,7 +143,7 @@ export function TasksPage() {
   })
 
   const searchedTasks = filteredTasks.filter(task => {
-    return task.title.includes(query)
+    return task.title.includes(query.trim().replace(/\s+ /g, " "))
   })
 
   const total = tasks.length;
