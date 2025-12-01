@@ -443,7 +443,7 @@ Error generating stack: `+l.message+`
   padding: ${n=>n.theme.spacing(5)};
   padding-left: ${n=>n.theme.spacing(7)};
   border-left: 
-  ${n=>n.theme.spacing(1.5)} dashed 
+  ${n=>n.theme.spacing(2)} dashed 
   ${n=>n.theme.colors.border.wrapper};
   border-top-left-radius: 0;
   border-top-right-radius: ${n=>n.theme.radius.wrapper};
