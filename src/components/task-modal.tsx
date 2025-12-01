@@ -16,7 +16,7 @@ const ModalBack = styled.div<{visable: boolean}>`
 `;
 
 const Modal = styled.div<{visible: boolean}>`
-    min-width: ${p => p.theme.spacing(48)};
+    min-width: ${p => p.theme.spacing(38)};
     background-color: ${p => p.theme.colors.surface};
     padding: 
     ${p => p.theme.spacing(2.7)};
