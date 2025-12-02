@@ -112,7 +112,8 @@ export function TasksPage() {
   }
 
   function DateStrCorrection(correction: string) {
-    return correction.replace(/\|/g, ',').replace(/created\s*/i, '').trim();
+    return (
+    correction.replace(' |', '').replace(' ~', '').replace('•', ':').trim())
   }
 
   function DateSortNewOnesFirst(tasks: Task[]) {
@@ -133,7 +134,7 @@ export function TasksPage() {
 
   const sortedTasks = 
   value === 'new' ? DateSortNewOnesFirst(tasks) : DateSortOlderFirst(tasks);
-
+  
   let symbols = task.trim().replace(/\s+ /g, " ").length;
 
   const filteredTasks = sortedTasks.filter(task => {

@@ -50,11 +50,6 @@ const ChoiceDateSortSelect = styled.select`
 const ChoiceDateSortOption = styled.option`
 `;
 
-export const options = [
-  { value: 'new', label: 'new' },
-  { value: 'old', label: 'old' }
-]
-
 type ChoiceDateSortProp = {
   value: string
   setValue: (newValue: string) => void
